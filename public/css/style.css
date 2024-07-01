@@ -6,3 +6,11 @@ h1 {
     color: red;
 
 }
+
+.member {
+    position: relative;
+    left: 50px;
+    top: 50px;
+    width: 100px;
+    height: 100px;
+}
