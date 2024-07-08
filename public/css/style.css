@@ -7,10 +7,13 @@ h1 {
 
 }
 
-.member {
+#container {
+    width: 600px;
+    height: 280px;
+    border: 2px solid blue;
+    background-color: #f0f0f0;
+    padding: 5px;
     position: relative;
-    left: 50px;
-    top: 50px;
-    width: 100px;
-    height: 100px;
+    /* Center Horizontally */
+    margin: 0 auto;
 }
