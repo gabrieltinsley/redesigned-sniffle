@@ -1,62 +1,68 @@
 let timerId = null;
 
-window.addEventListener("DOMContentLoaded", function() {
-   document.addEventListener("click", startAnimation);
-});
+        window.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("keydown", startAnimation);
+            document.addEventListener("keyup", stopAnimation);
+        });
 
-function startAnimation(e) {
-   // Get mouse coordinates
-   let clickX = e.clientX;
-   let clickY = e.clientY;
+        function startAnimation(e) {
+            let direction;
+            switch(e.key.toLowerCase()) { // Convert key to lowercase
+                case 'w':
+                    direction = 'up';
+                    break;
+                case 'a':
+                    direction = 'left';
+                    break;
+                case 's':
+                    direction = 'down';
+                    break;
+                case 'd':
+                    direction = 'right';
+                    break;
+                default:
+                    return; // Ignore other keys
+            }
 
-   //Stop any previous timers
-   if(timerId !== null) {
-      clearInterval(timerId);
-   }
+            if (timerId !== null) {
+                clearInterval(timerId);
+            }
 
-   //Start a new timer that calls moveImage(x,y) every 10 ms, timer ID is global
-   timerId = setInterval(function() {
-      moveImage(clickX, clickY);
-   }, 10);
-}
+            timerId = setInterval(function() {
+                moveImage(direction);
+            }, 10);
+        }
 
-function moveImage(x, y) {
-   const img = document.querySelector("img");
+        function stopAnimation() {
+            if (timerId !== null) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+        }
 
-   // Determine location of image
-   let imgX = parseInt(img.style.left);
-   let imgY = parseInt(img.style.top);
+        function moveImage(direction) {
+            const img = document.querySelector("img");
 
-   /**
-    * Finds the given coordinates that center the image 
-    * around the click
-    */
-   const centerX = Math.round(x - (img.width / 2));
-   const centerY = Math.round(y - (img.height / 2));
+            let imgX = parseInt(img.style.left) || 0;
+            let imgY = parseInt(img.style.top) || 0;
 
-   // Timer stops when image reaches the center point
-   if(imgX === centerX && imgY === centerY) {
-      clearInterval(timerId);
-      timerId = null;
-      return;
-   }
+            const stepSize = 1; // pixels per step
 
-   //Image moves 1 pixel in all directions
-   if(imgX < centerX) {
-      imgX++;
-   }
-   else if(imgX > centerX) {
-      imgX--;
-   }
+            switch(direction) {
+                case 'up':
+                    imgY -= stepSize;
+                    break;
+                case 'down':
+                    imgY += stepSize;
+                    break;
+                case 'left':
+                    imgX -= stepSize;
+                    break;
+                case 'right':
+                    imgX += stepSize;
+                    break;
+            }
 
-   if(imgY < centerY) {
-      imgY++;
-   }
-   else if(imgY > centerY) {
-      imgY--;
-   }
-   
-   // Update image location
-   img.style.left = imgX + "px";
-   img.style.top = imgY + "px";
-}
+            img.style.left = imgX + "px";
+            img.style.top = imgY + "px";
+        }
