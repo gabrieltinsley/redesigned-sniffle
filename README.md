@@ -2,7 +2,7 @@
 This repository is for creating a game
 
 ### Getting Started
-This project can be started by installing the node modules.
+This project can be started by installing the node modules. 
 
 Type `npm install` to get the node modules into the command line.
 

@@ -1,4 +1,5 @@
 let timerId = null;
+var checkDead;
 
         window.addEventListener("DOMContentLoaded", function() {
             document.addEventListener("keydown", startAnimation);
@@ -6,7 +7,7 @@ let timerId = null;
         });
 
         function startAnimation(e) {
-            let direction;
+            let direction; 
             switch(e.key.toLowerCase()) { // Convert key to lowercase
                 case 'w':
                     direction = 'up';
@@ -65,4 +66,36 @@ let timerId = null;
 
             img.style.left = imgX + "px";
             img.style.top = imgY + "px";
-        }
+            
+            checkDead = setInterval(function(){
+                var imgTop = parseInt(window.getComputedStyle(img).getPropertyValue("top"));
+                var imgLeft = parseInt(window.getComputedStyle(img).getPropertyValue("left"));
+    
+                if(imgTop <= -2 || imgTop >= 211 || imgLeft <=-2 || imgLeft >= 552) {
+                    img.style.left = "0px";
+                    img.style.top = "0px";
+                    alert("You lose");
+                    if(img.style.left === 0 && img.style.top === 0) {
+                        return Infinity;
+                    }
+                }
+    
+                /*if(imgTop >= 210) {
+                    img.style.left = "0px";
+                    img.style.top = "0px";
+                    alert("You lose");
+                }
+    
+                if(imgLeft <= -1) {
+                    img.style.left = "0px";
+                    img.style.top = "0px";
+                    alert("You lose");
+                }
+    
+                if(imgLeft >= 551) {
+                    img.style.left = "0px";
+                    img.style.top = "0px";
+                    alert("You lose");
+                }*/
+            }, 10);
+         }

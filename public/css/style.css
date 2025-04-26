@@ -1,3 +1,7 @@
+*   {  
+    padding: 0;
+    margin: 0;
+}
 body {
     background-color: orange;
 }
@@ -7,13 +11,11 @@ h1 {
 
 }
 
-#container {
-    width: 600px;
+#game {
     height: 280px;
+    width: 600px;
     border: 2px solid blue;
     background-color: #f0f0f0;
     padding: 5px;
     position: relative;
-    /* Center Horizontally */
-    margin: 0 auto;
 }
